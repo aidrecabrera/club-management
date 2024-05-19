@@ -23,26 +23,14 @@ import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import authProvider from "./authProvider";
 import { Header } from "./components/header";
 import { ColorModeContextProvider } from "./contexts/color-mode";
-import { ClubCreate, ClubEdit, ClubList, ClubShow } from "./pages/clubs";
-import {
-  InstructorCreate,
-  InstructorEdit,
-  InstructorList,
-  InstructorShow,
-} from "./pages/instructors";
-import {
-  MemberCreate,
-  MemberEdit,
-  MemberList,
-  MemberShow,
-} from "./pages/members";
-import {
-  StudentCreate,
-  StudentEdit,
-  StudentList,
-  StudentShow,
-} from "./pages/students";
 import { supabaseClient } from "./utility";
+
+import {
+  MuiCreateInferencer,
+  MuiEditInferencer,
+  MuiListInferencer,
+  MuiShowInferencer,
+} from "@refinedev/inferencer/mui";
 
 function App() {
   return (
@@ -127,28 +115,28 @@ function App() {
                       element={<NavigateToResource resource="students" />}
                     />
                     <Route path="/students">
-                      <Route index element={<StudentList />} />
-                      <Route path="create" element={<StudentCreate />} />
-                      <Route path="edit/:id" element={<StudentEdit />} />
-                      <Route path="show/:id" element={<StudentShow />} />
+                      <Route index element={<MuiListInferencer />} />
+                      <Route path="create" element={<MuiCreateInferencer />} />
+                      <Route path="edit/:id" element={<MuiEditInferencer />} />
+                      <Route path="show/:id" element={<MuiShowInferencer />} />
                     </Route>
                     <Route path="/instructors">
-                      <Route index element={<InstructorList />} />
-                      <Route path="create" element={<InstructorCreate />} />
-                      <Route path="edit/:id" element={<InstructorEdit />} />
-                      <Route path="show/:id" element={<InstructorShow />} />
+                      <Route index element={<MuiListInferencer />} />
+                      <Route path="create" element={<MuiCreateInferencer />} />
+                      <Route path="edit/:id" element={<MuiEditInferencer />} />
+                      <Route path="show/:id" element={<MuiShowInferencer />} />
                     </Route>
                     <Route path="/clubs">
-                      <Route index element={<ClubList />} />
-                      <Route path="create" element={<ClubCreate />} />
-                      <Route path="edit/:id" element={<ClubEdit />} />
-                      <Route path="show/:id" element={<ClubShow />} />
+                      <Route index element={<MuiListInferencer />} />
+                      <Route path="create" element={<MuiCreateInferencer />} />
+                      <Route path="edit/:id" element={<MuiEditInferencer />} />
+                      <Route path="show/:id" element={<MuiShowInferencer />} />
                     </Route>
                     <Route path="/members">
-                      <Route index element={<MemberList />} />
-                      <Route path="create" element={<MemberCreate />} />
-                      <Route path="edit/:id" element={<MemberEdit />} />
-                      <Route path="show/:id" element={<MemberShow />} />
+                      <Route index element={<MuiListInferencer />} />
+                      <Route path="create" element={<MuiCreateInferencer />} />
+                      <Route path="edit/:id" element={<MuiEditInferencer />} />
+                      <Route path="show/:id" element={<MuiShowInferencer />} />
                     </Route>
                     <Route path="*" element={<ErrorComponent />} />
                   </Route>
