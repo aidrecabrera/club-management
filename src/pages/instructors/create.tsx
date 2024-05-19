@@ -1,7 +1,6 @@
-import { Autocomplete, Box, TextField } from "@mui/material";
-import { Create, useAutocomplete } from "@refinedev/mui";
+import { Box, TextField } from "@mui/material";
+import { Create } from "@refinedev/mui";
 import { useForm } from "@refinedev/react-hook-form";
-import { Controller } from "react-hook-form";
 
 export const InstructorCreate = () => {
   const {
@@ -12,10 +11,6 @@ export const InstructorCreate = () => {
     formState: { errors },
   } = useForm();
 
-  const { autocompleteProps: instructorAutocompleteProps } = useAutocomplete({
-    resource: "instructors",
-  });
-
   return (
     <Create isLoading={formLoading} saveButtonProps={saveButtonProps}>
       <Box
@@ -23,44 +18,6 @@ export const InstructorCreate = () => {
         sx={{ display: "flex", flexDirection: "column" }}
         autoComplete="off"
       >
-        <Controller
-          control={control}
-          name="instructor_id"
-          rules={{ required: "This field is required" }}
-          // eslint-disable-next-line
-          defaultValue={null as any}
-          render={({ field }) => (
-            <Autocomplete
-              {...instructorAutocompleteProps}
-              {...field}
-              onChange={(_, value) => {
-                field.onChange(value?.id ?? value);
-              }}
-              getOptionLabel={(item) => {
-                return (
-                  instructorAutocompleteProps?.options?.find(
-                    (p) => p?.id?.toString() === (item?.id ?? item)?.toString()
-                  )?.title ?? ""
-                );
-              }}
-              isOptionEqualToValue={(option, value) =>
-                value === undefined ||
-                option?.id?.toString() === (value?.id ?? value)?.toString()
-              }
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Instructor"
-                  margin="normal"
-                  variant="outlined"
-                  error={!!(errors as any)?.instructor_id}
-                  helperText={(errors as any)?.instructor_id?.message}
-                  required
-                />
-              )}
-            />
-          )}
-        />
         <TextField
           {...register("firstname", {
             required: "This field is required",
@@ -112,32 +69,6 @@ export const InstructorCreate = () => {
           type="text"
           label="Phone"
           name="phone"
-        />
-
-        <TextField
-          {...register("createdat", {
-            required: "This field is required",
-          })}
-          error={!!(errors as any)?.createdat}
-          helperText={(errors as any)?.createdat?.message}
-          margin="normal"
-          fullWidth
-          InputLabelProps={{ shrink: true }}
-          label="Createdat"
-          name="createdat"
-        />
-
-        <TextField
-          {...register("updatedat", {
-            required: "This field is required",
-          })}
-          error={!!(errors as any)?.updatedat}
-          helperText={(errors as any)?.updatedat?.message}
-          margin="normal"
-          fullWidth
-          InputLabelProps={{ shrink: true }}
-          label="Updatedat"
-          name="updatedat"
         />
       </Box>
     </Create>
