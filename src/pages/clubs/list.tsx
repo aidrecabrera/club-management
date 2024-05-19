@@ -16,14 +16,13 @@ export const ClubList = () => {
     () => [
       {
         field: "id",
-        headerName: "Id",
-        type: "number",
+        headerName: "ID",
         minWidth: 50,
       },
       {
         field: "clubname",
         flex: 1,
-        headerName: "Clubname",
+        headerName: "Club Name",
         minWidth: 200,
       },
       {
@@ -35,33 +34,31 @@ export const ClubList = () => {
       {
         field: "advisorid",
         flex: 1,
-        headerName: "Advisorid",
-        type: "number",
+        headerName: "Advisor ID",
         minWidth: 200,
       },
       {
         field: "meetingday",
         flex: 1,
-        headerName: "Meetingday",
+        headerName: "Meeting Day",
         minWidth: 200,
       },
       {
         field: "meetingtime",
         flex: 1,
-        headerName: "Meetingtime",
+        headerName: "Meeting Time",
         minWidth: 200,
       },
       {
         field: "roomnumber",
         flex: 1,
-        headerName: "Roomnumber",
-        type: "number",
+        headerName: "Room Number",
         minWidth: 200,
       },
       {
         field: "createdat",
         flex: 1,
-        headerName: "Createdat",
+        headerName: "Create Date",
         minWidth: 250,
         renderCell: function render({ value }) {
           return <DateField value={value} />;
@@ -70,7 +67,7 @@ export const ClubList = () => {
       {
         field: "updatedat",
         flex: 1,
-        headerName: "Updatedat",
+        headerName: "Update Date",
         minWidth: 250,
         renderCell: function render({ value }) {
           return <DateField value={value} />;

@@ -18,26 +18,28 @@ export const StudentList = () => {
       {
         field: "id",
         flex: 1,
-        headerName: "Id",
+        headerName: "ID",
         type: "number",
-        minWidth: 200,
+        minWidth: 100,
+        align: "center",
+        headerAlign: "center",
       },
       {
         field: "firstname",
         flex: 1,
-        headerName: "Firstname",
+        headerName: "First Name",
         minWidth: 200,
       },
       {
         field: "lastname",
         flex: 1,
-        headerName: "Lastname",
+        headerName: "Last Name",
         minWidth: 200,
       },
       {
         field: "dateofbirth",
         flex: 1,
-        headerName: "Dateofbirth",
+        headerName: "Date of Birth",
         minWidth: 250,
         renderCell: function render({ value }) {
           return <DateField value={value} />;
@@ -71,18 +73,18 @@ export const StudentList = () => {
         minWidth: 200,
       },
       {
-        field: "createdat",
+        field: "createdate",
         flex: 1,
-        headerName: "Createdat",
+        headerName: "Create Date",
         minWidth: 250,
         renderCell: function render({ value }) {
           return <DateField value={value} />;
         },
       },
       {
-        field: "updatedat",
+        field: "updatedate",
         flex: 1,
-        headerName: "Updatedat",
+        headerName: "Updated Date",
         minWidth: 250,
         renderCell: function render({ value }) {
           return <DateField value={value} />;

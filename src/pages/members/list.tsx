@@ -16,23 +16,26 @@ export const MemberList = () => {
     () => [
       {
         field: "id",
-        headerName: "Id",
+        headerName: "ID",
         type: "number",
-        minWidth: 50,
+        minWidth: 100,
+        maxWidth: 150,
       },
       {
         field: "clubid",
         flex: 1,
-        headerName: "Clubid",
+        headerName: "Club ID",
         type: "number",
-        minWidth: 200,
+        minWidth: 100,
+        maxWidth: 150,
       },
       {
         field: "studentid",
         flex: 1,
-        headerName: "Studentid",
+        headerName: "Student ID",
         type: "number",
-        minWidth: 200,
+        minWidth: 100,
+        maxWidth: 150,
       },
       {
         field: "role",
@@ -43,7 +46,7 @@ export const MemberList = () => {
       {
         field: "joindate",
         flex: 1,
-        headerName: "Joindate",
+        headerName: "Join Date",
         minWidth: 250,
         renderCell: function render({ value }) {
           return <DateField value={value} />;
@@ -52,7 +55,7 @@ export const MemberList = () => {
       {
         field: "createdat",
         flex: 1,
-        headerName: "Createdat",
+        headerName: "Create Date",
         minWidth: 250,
         renderCell: function render({ value }) {
           return <DateField value={value} />;
@@ -61,7 +64,7 @@ export const MemberList = () => {
       {
         field: "updatedat",
         flex: 1,
-        headerName: "Updatedat",
+        headerName: "Update Date",
         minWidth: 250,
         renderCell: function render({ value }) {
           return <DateField value={value} />;

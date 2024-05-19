@@ -27,19 +27,20 @@ export const InstructorList = () => {
       {
         field: "id",
         flex: 1,
-        headerName: "Instructor",
-        minWidth: 300,
+        headerName: "ID",
+        minWidth: 100,
+        maxWidth: 100,
       },
       {
         field: "firstname",
         flex: 1,
-        headerName: "Firstname",
+        headerName: "First Name",
         minWidth: 200,
       },
       {
         field: "lastname",
         flex: 1,
-        headerName: "Lastname",
+        headerName: "Last Name",
         minWidth: 200,
       },
       {
@@ -60,7 +61,7 @@ export const InstructorList = () => {
       {
         field: "createdat",
         flex: 1,
-        headerName: "Createdat",
+        headerName: "Create Date",
         minWidth: 250,
         renderCell: function render({ value }) {
           return <DateField value={value} />;
@@ -69,7 +70,7 @@ export const InstructorList = () => {
       {
         field: "updatedat",
         flex: 1,
-        headerName: "Updatedat",
+        headerName: "Update Date",
         minWidth: 250,
         renderCell: function render({ value }) {
           return <DateField value={value} />;

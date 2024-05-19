@@ -1,11 +1,45 @@
-import { ThemeProvider } from "@mui/material/styles";
+import {
+  createTheme,
+  ThemeProvider,
+  TypographyVariantsOptions,
+} from "@mui/material/styles";
 import { RefineThemes } from "@refinedev/mui";
 import React, {
-  PropsWithChildren,
   createContext,
+  PropsWithChildren,
   useEffect,
   useState,
 } from "react";
+
+const typography: TypographyVariantsOptions = {
+  fontFamily: [
+    "Inter",
+    "-apple-system",
+    "BlinkMacSystemFont",
+    '"Segoe UI"',
+    "Roboto",
+    '"Helvetica Neue"',
+    "Arial",
+    "sans-serif",
+    '"Apple Color Emoji"',
+    '"Segoe UI Emoji"',
+    '"Segoe UI Symbol"',
+  ].join(","),
+};
+
+const enhancedLightTheme = createTheme({
+  ...RefineThemes.Red,
+  typography: {
+    fontFamily: typography.fontFamily,
+  },
+});
+
+const enhancedDarkTheme = createTheme({
+  ...RefineThemes.RedDark,
+  typography: {
+    fontFamily: typography.fontFamily,
+  },
+});
 
 type ColorModeContextType = {
   mode: string;
@@ -49,8 +83,7 @@ export const ColorModeContextProvider: React.FC<PropsWithChildren> = ({
       }}
     >
       <ThemeProvider
-        // can change the theme colors here. example: mode === "light" ? RefineThemes.Magenta : RefineThemes.MagentaDark
-        theme={mode === "light" ? RefineThemes.Blue : RefineThemes.BlueDark}
+        theme={mode === "light" ? enhancedLightTheme : enhancedDarkTheme}
       >
         {children}
       </ThemeProvider>
