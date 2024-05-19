@@ -1,9 +1,4 @@
-import {
-  Refine,
-  GitHubBanner,
-  WelcomePage,
-  Authenticated,
-} from "@refinedev/core";
+import { Authenticated, GitHubBanner, Refine } from "@refinedev/core";
 import { DevtoolsPanel, DevtoolsProvider } from "@refinedev/devtools";
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
 
@@ -15,32 +10,39 @@ import {
   ThemedLayoutV2,
 } from "@refinedev/mui";
 
-import { dataProvider, liveProvider } from "@refinedev/supabase";
 import CssBaseline from "@mui/material/CssBaseline";
 import GlobalStyles from "@mui/material/GlobalStyles";
-import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
 import routerBindings, {
-  NavigateToResource,
   CatchAllNavigate,
-  UnsavedChangesNotifier,
   DocumentTitleHandler,
+  NavigateToResource,
+  UnsavedChangesNotifier,
 } from "@refinedev/react-router-v6";
-import {
-  BlogPostList,
-  BlogPostCreate,
-  BlogPostEdit,
-  BlogPostShow,
-} from "./pages/blog-posts";
-import {
-  CategoryList,
-  CategoryCreate,
-  CategoryEdit,
-  CategoryShow,
-} from "./pages/categories";
-import { supabaseClient } from "./utility";
-import { ColorModeContextProvider } from "./contexts/color-mode";
-import { Header } from "./components/header";
+import { dataProvider, liveProvider } from "@refinedev/supabase";
+import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import authProvider from "./authProvider";
+import { Header } from "./components/header";
+import { ColorModeContextProvider } from "./contexts/color-mode";
+import { ClubCreate, ClubEdit, ClubList, ClubShow } from "./pages/clubs";
+import {
+  InstructorCreate,
+  InstructorEdit,
+  InstructorList,
+  InstructorShow,
+} from "./pages/instructors";
+import {
+  MemberCreate,
+  MemberEdit,
+  MemberList,
+  MemberShow,
+} from "./pages/members";
+import {
+  StudentCreate,
+  StudentEdit,
+  StudentList,
+  StudentShow,
+} from "./pages/students";
+import { supabaseClient } from "./utility";
 
 function App() {
   return (
@@ -60,21 +62,41 @@ function App() {
                 notificationProvider={notificationProvider}
                 resources={[
                   {
-                    name: "blog_posts",
-                    list: "/blog-posts",
-                    create: "/blog-posts/create",
-                    edit: "/blog-posts/edit/:id",
-                    show: "/blog-posts/show/:id",
+                    name: "students",
+                    list: "/students",
+                    create: "/students/create",
+                    edit: "/students/edit/:id",
+                    show: "/students/show/:id",
                     meta: {
                       canDelete: true,
                     },
                   },
                   {
-                    name: "categories",
-                    list: "/categories",
-                    create: "/categories/create",
-                    edit: "/categories/edit/:id",
-                    show: "/categories/show/:id",
+                    name: "instructors",
+                    list: "/instructors",
+                    create: "/instructors/create",
+                    edit: "/instructors/edit/:id",
+                    show: "/instructors/show/:id",
+                    meta: {
+                      canDelete: true,
+                    },
+                  },
+                  {
+                    name: "clubs",
+                    list: "/clubs",
+                    create: "/clubs/create",
+                    edit: "/clubs/edit/:id",
+                    show: "/clubs/show/:id",
+                    meta: {
+                      canDelete: true,
+                    },
+                  },
+                  {
+                    name: "members",
+                    list: "/members",
+                    create: "/members/create",
+                    edit: "/members/edit/:id",
+                    show: "/members/show/:id",
                     meta: {
                       canDelete: true,
                     },
@@ -102,19 +124,31 @@ function App() {
                   >
                     <Route
                       index
-                      element={<NavigateToResource resource="blog_posts" />}
+                      element={<NavigateToResource resource="students" />}
                     />
-                    <Route path="/blog-posts">
-                      <Route index element={<BlogPostList />} />
-                      <Route path="create" element={<BlogPostCreate />} />
-                      <Route path="edit/:id" element={<BlogPostEdit />} />
-                      <Route path="show/:id" element={<BlogPostShow />} />
+                    <Route path="/students">
+                      <Route index element={<StudentList />} />
+                      <Route path="create" element={<StudentCreate />} />
+                      <Route path="edit/:id" element={<StudentEdit />} />
+                      <Route path="show/:id" element={<StudentShow />} />
                     </Route>
-                    <Route path="/categories">
-                      <Route index element={<CategoryList />} />
-                      <Route path="create" element={<CategoryCreate />} />
-                      <Route path="edit/:id" element={<CategoryEdit />} />
-                      <Route path="show/:id" element={<CategoryShow />} />
+                    <Route path="/instructors">
+                      <Route index element={<InstructorList />} />
+                      <Route path="create" element={<InstructorCreate />} />
+                      <Route path="edit/:id" element={<InstructorEdit />} />
+                      <Route path="show/:id" element={<InstructorShow />} />
+                    </Route>
+                    <Route path="/clubs">
+                      <Route index element={<ClubList />} />
+                      <Route path="create" element={<ClubCreate />} />
+                      <Route path="edit/:id" element={<ClubEdit />} />
+                      <Route path="show/:id" element={<ClubShow />} />
+                    </Route>
+                    <Route path="/members">
+                      <Route index element={<MemberList />} />
+                      <Route path="create" element={<MemberCreate />} />
+                      <Route path="edit/:id" element={<MemberEdit />} />
+                      <Route path="show/:id" element={<MemberShow />} />
                     </Route>
                     <Route path="*" element={<ErrorComponent />} />
                   </Route>
