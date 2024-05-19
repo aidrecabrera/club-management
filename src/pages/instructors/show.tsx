@@ -1,62 +1,50 @@
 import { Stack, Typography } from "@mui/material";
-import { useOne, useShow } from "@refinedev/core";
+import { useShow } from "@refinedev/core";
 import {
   DateField,
-  MarkdownField,
+  EmailField,
   NumberField,
   Show,
   TextFieldComponent as TextField,
 } from "@refinedev/mui";
 
-export const BlogPostShow = () => {
-  const { queryResult } = useShow({
-    meta: {
-      select: "*, categories(id,title)",
-    },
-  });
-
+export const InstructorShow = () => {
+  const { queryResult } = useShow();
   const { data, isLoading } = queryResult;
 
   const record = data?.data;
-
-  const { data: categoryData, isLoading: categoryIsLoading } = useOne({
-    resource: "categories",
-    id: record?.categories?.id || "",
-    queryOptions: {
-      enabled: !!record,
-    },
-  });
 
   return (
     <Show isLoading={isLoading}>
       <Stack gap={1}>
         <Typography variant="body1" fontWeight="bold">
-          {"ID"}
+          Id
         </Typography>
         <NumberField value={record?.id ?? ""} />
-
         <Typography variant="body1" fontWeight="bold">
-          {"Title"}
+          Firstname
         </Typography>
-        <TextField value={record?.title} />
-
+        <TextField value={record?.firstname} />
         <Typography variant="body1" fontWeight="bold">
-          {"Content"}
+          Lastname
         </Typography>
-        <MarkdownField value={record?.content} />
-
+        <TextField value={record?.lastname} />
         <Typography variant="body1" fontWeight="bold">
-          {"Category"}
+          Email
         </Typography>
-        {categoryIsLoading ? <>Loading...</> : <>{categoryData?.data?.title}</>}
+        <EmailField value={record?.email} />
         <Typography variant="body1" fontWeight="bold">
-          {"Status"}
+          Phone
         </Typography>
-        <TextField value={record?.status} />
+        <TextField value={record?.phone} />
         <Typography variant="body1" fontWeight="bold">
-          {"CreatedAt"}
+          Createdat
         </Typography>
-        <DateField value={record?.createdAt} />
+        <DateField value={record?.createdat} />
+        <Typography variant="body1" fontWeight="bold">
+          Updatedat
+        </Typography>
+        <DateField value={record?.updatedat} />
       </Stack>
     </Show>
   );

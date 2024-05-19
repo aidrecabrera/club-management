@@ -25,12 +25,25 @@ import { Header } from "./components/header";
 import { ColorModeContextProvider } from "./contexts/color-mode";
 import { supabaseClient } from "./utility";
 
+import { ClubCreate, ClubEdit, ClubList, ClubShow } from "./pages/clubs";
 import {
-  MuiCreateInferencer,
-  MuiEditInferencer,
-  MuiListInferencer,
-  MuiShowInferencer,
-} from "@refinedev/inferencer/mui";
+  InstructorCreate,
+  InstructorEdit,
+  InstructorList,
+  InstructorShow,
+} from "./pages/instructors";
+import {
+  MemberCreate,
+  MemberEdit,
+  MemberList,
+  MemberShow,
+} from "./pages/members";
+import {
+  StudentCreate,
+  StudentEdit,
+  StudentList,
+  StudentShow,
+} from "./pages/students";
 
 function App() {
   return (
@@ -53,8 +66,8 @@ function App() {
                     name: "students",
                     list: "/students",
                     create: "/students/create",
-                    edit: "/students/edit/:id",
-                    show: "/students/show/:id",
+                    edit: "/students/edit/:student_id",
+                    show: "/students/show/:student_id",
                     meta: {
                       canDelete: true,
                     },
@@ -115,28 +128,34 @@ function App() {
                       element={<NavigateToResource resource="students" />}
                     />
                     <Route path="/students">
-                      <Route index element={<MuiListInferencer />} />
-                      <Route path="create" element={<MuiCreateInferencer />} />
-                      <Route path="edit/:id" element={<MuiEditInferencer />} />
-                      <Route path="show/:id" element={<MuiShowInferencer />} />
+                      <Route index element={<StudentList />} />
+                      <Route path="create" element={<StudentCreate />} />
+                      <Route
+                        path="edit/:student_id"
+                        element={<StudentEdit />}
+                      />
+                      <Route
+                        path="show/:student_id"
+                        element={<StudentShow />}
+                      />
                     </Route>
                     <Route path="/instructors">
-                      <Route index element={<MuiListInferencer />} />
-                      <Route path="create" element={<MuiCreateInferencer />} />
-                      <Route path="edit/:id" element={<MuiEditInferencer />} />
-                      <Route path="show/:id" element={<MuiShowInferencer />} />
+                      <Route index element={<InstructorList />} />
+                      <Route path="create" element={<InstructorCreate />} />
+                      <Route path="edit/:id" element={<InstructorEdit />} />
+                      <Route path="show/:id" element={<InstructorShow />} />
                     </Route>
                     <Route path="/clubs">
-                      <Route index element={<MuiListInferencer />} />
-                      <Route path="create" element={<MuiCreateInferencer />} />
-                      <Route path="edit/:id" element={<MuiEditInferencer />} />
-                      <Route path="show/:id" element={<MuiShowInferencer />} />
+                      <Route index element={<ClubList />} />
+                      <Route path="create" element={<ClubCreate />} />
+                      <Route path="edit/:id" element={<ClubEdit />} />
+                      <Route path="show/:id" element={<ClubShow />} />
                     </Route>
                     <Route path="/members">
-                      <Route index element={<MuiListInferencer />} />
-                      <Route path="create" element={<MuiCreateInferencer />} />
-                      <Route path="edit/:id" element={<MuiEditInferencer />} />
-                      <Route path="show/:id" element={<MuiShowInferencer />} />
+                      <Route index element={<MemberList />} />
+                      <Route path="create" element={<MemberCreate />} />
+                      <Route path="edit/:id" element={<MemberEdit />} />
+                      <Route path="show/:id" element={<MemberShow />} />
                     </Route>
                     <Route path="*" element={<ErrorComponent />} />
                   </Route>
