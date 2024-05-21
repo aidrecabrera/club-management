@@ -66,26 +66,6 @@ function App() {
               notificationProvider={notificationProvider}
               resources={[
                 {
-                  name: "students",
-                  list: "/students",
-                  create: "/students/create",
-                  edit: "/students/edit/:student_id",
-                  show: "/students/show/:student_id",
-                  meta: {
-                    canDelete: true,
-                  },
-                },
-                {
-                  name: "instructors",
-                  list: "/instructors",
-                  create: "/instructors/create",
-                  edit: "/instructors/edit/:id",
-                  show: "/instructors/show/:id",
-                  meta: {
-                    canDelete: true,
-                  },
-                },
-                {
                   name: "clubs",
                   list: "/clubs",
                   create: "/clubs/create",
@@ -101,6 +81,26 @@ function App() {
                   create: "/members/create",
                   edit: "/members/edit/:id",
                   show: "/members/show/:id",
+                  meta: {
+                    canDelete: true,
+                  },
+                },
+                {
+                  name: "students",
+                  list: "/students",
+                  create: "/students/create",
+                  edit: "/students/edit/:student_id",
+                  show: "/students/show/:student_id",
+                  meta: {
+                    canDelete: true,
+                  },
+                },
+                {
+                  name: "instructors",
+                  list: "/instructors",
+                  create: "/instructors/create",
+                  edit: "/instructors/edit/:id",
+                  show: "/instructors/show/:id",
                   meta: {
                     canDelete: true,
                   },
@@ -134,18 +134,6 @@ function App() {
                     index
                     element={<NavigateToResource resource="students" />}
                   />
-                  <Route path="/students">
-                    <Route index element={<StudentList />} />
-                    <Route path="create" element={<StudentCreate />} />
-                    <Route path="edit/:student_id" element={<StudentEdit />} />
-                    <Route path="show/:student_id" element={<StudentShow />} />
-                  </Route>
-                  <Route path="/instructors">
-                    <Route index element={<InstructorList />} />
-                    <Route path="create" element={<InstructorCreate />} />
-                    <Route path="edit/:id" element={<InstructorEdit />} />
-                    <Route path="show/:id" element={<InstructorShow />} />
-                  </Route>
                   <Route path="/clubs">
                     <Route index element={<ClubList />} />
                     <Route path="create" element={<ClubCreate />} />
@@ -157,6 +145,18 @@ function App() {
                     <Route path="create" element={<MemberCreate />} />
                     <Route path="edit/:id" element={<MemberEdit />} />
                     <Route path="show/:id" element={<MemberShow />} />
+                  </Route>
+                  <Route path="/students">
+                    <Route index element={<StudentList />} />
+                    <Route path="create" element={<StudentCreate />} />
+                    <Route path="edit/:student_id" element={<StudentEdit />} />
+                    <Route path="show/:student_id" element={<StudentShow />} />
+                  </Route>
+                  <Route path="/instructors">
+                    <Route index element={<InstructorList />} />
+                    <Route path="create" element={<InstructorCreate />} />
+                    <Route path="edit/:id" element={<InstructorEdit />} />
+                    <Route path="show/:id" element={<InstructorShow />} />
                   </Route>
                   <Route path="*" element={<ErrorComponent />} />
                 </Route>

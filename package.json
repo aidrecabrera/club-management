@@ -22,6 +22,7 @@
     "@refinedev/react-router-v6": "^4.5.5",
     "@refinedev/supabase": "^5.7.4",
     "dayjs": "^1.11.11",
+    "dotenv": "^16.4.5",
     "graphql": "^16.8.1",
     "ra-data-graphql": "^4.16.17",
     "react": "^18.0.0",
@@ -49,7 +50,8 @@
     "dev": "refine dev",
     "build": "tsc && refine build",
     "preview": "refine start",
-    "refine": "refine"
+    "refine": "refine",
+    "generate-types": "node -r dotenv/config -e \"const url = process.env.VITE_SUPABASE_URL; const projectId = url.split('//')[1].split('.')[0]; require('child_process').execSync(`pnpx supabase gen types typescript --project-id ${projectId} --schema public > src/types/database.types.ts`);\""
   },
   "browserslist": {
     "production": [
