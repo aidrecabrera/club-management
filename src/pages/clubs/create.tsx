@@ -1,6 +1,10 @@
 import { Box, TextField } from "@mui/material";
+import { LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { Create } from "@refinedev/mui";
 import { useForm } from "@refinedev/react-hook-form";
+import dayjs from "dayjs";
+import { Controller } from "react-hook-form";
 
 export const ClubCreate = () => {
   const {
@@ -9,6 +13,7 @@ export const ClubCreate = () => {
     register,
     control,
     formState: { errors },
+    setValue,
   } = useForm();
 
   return (
@@ -71,18 +76,32 @@ export const ClubCreate = () => {
           label="Meetingday"
           name="meetingday"
         />
-        <TextField
-          {...register("meetingtime", {
-            required: "This field is required",
-          })}
-          error={!!(errors as any)?.meetingtime}
-          helperText={(errors as any)?.meetingtime?.message}
-          margin="normal"
-          fullWidth
-          InputLabelProps={{ shrink: true }}
-          type="text"
-          label="Meetingtime"
+        <Controller
           name="meetingtime"
+          control={control}
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <TimePicker
+                label="Meeting Time"
+                value={value ? dayjs(value, "HH:mm:ss") : null}
+                onChange={(time) => {
+                  if (time) {
+                    const formattedTime = time.format("HH:mm:ss");
+                    onChange(formattedTime);
+                    setValue("meetingtime", formattedTime);
+                  } else {
+                    onChange(null);
+                    setValue("meetingtime", null);
+                  }
+                }}
+                onError={(error) => {
+                  if (error) {
+                    console.error(error);
+                  }
+                }}
+              />
+            </LocalizationProvider>
+          )}
         />
         <TextField
           {...register("roomnumber", {
@@ -97,32 +116,6 @@ export const ClubCreate = () => {
           type="number"
           label="Roomnumber"
           name="roomnumber"
-        />
-
-        <TextField
-          {...register("createdat", {
-            required: "This field is required",
-          })}
-          error={!!(errors as any)?.createdat}
-          helperText={(errors as any)?.createdat?.message}
-          margin="normal"
-          fullWidth
-          InputLabelProps={{ shrink: true }}
-          label="Createdat"
-          name="createdat"
-        />
-
-        <TextField
-          {...register("updatedat", {
-            required: "This field is required",
-          })}
-          error={!!(errors as any)?.updatedat}
-          helperText={(errors as any)?.updatedat?.message}
-          margin="normal"
-          fullWidth
-          InputLabelProps={{ shrink: true }}
-          label="Updatedat"
-          name="updatedat"
         />
       </Box>
     </Create>

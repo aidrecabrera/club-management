@@ -1,7 +1,15 @@
 import { Show } from "@/components/crud/show";
 import { convertDateFormat, convertTimeFormat } from "@/lib/utils";
 import { TableType } from "@/types/types";
-import { Card, CardContent, Grid, List, Typography } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  Divider,
+  Grid,
+  IconButton,
+  Typography,
+} from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useShow } from "@refinedev/core";
 import {
@@ -74,10 +82,29 @@ export const ClubShow = () => {
           <Grid container columnSpacing={3}>
             <Grid item xs={12} md={12} lg={3}>
               <Card>
+                <CardHeader
+                  action={<IconButton aria-label="settings"></IconButton>}
+                  title={record.clubname}
+                  subheader={`Founded: ${convertDateFormat(
+                    (record.createdat as string) || new Date().toISOString()
+                  )}`}
+                />
                 <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {record.clubname}
+                  <Typography
+                    gutterBottom
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{
+                      marginTop: "-20px",
+                    }}
+                  >
+                    {record.description}
                   </Typography>
+                  <Divider
+                    sx={{
+                      margin: "10px 0",
+                    }}
+                  />
                   <Typography variant="body2" color="text.secondary">
                     Meeting: {record.meetingday} @{" "}
                     {convertTimeFormat(
@@ -87,24 +114,15 @@ export const ClubShow = () => {
                   <Typography variant="body2" color="text.secondary">
                     Room Number: {record.roomnumber}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Founded Date:{" "}
-                    {convertDateFormat(
-                      (record.createdat as string) || new Date().toISOString()
-                    )}
-                  </Typography>
                 </CardContent>
               </Card>
             </Grid>
             <Grid item xs={12} md={12} lg={9}>
-              <List>
-                <DataGrid
-                  {...dataGridProps}
-                  columns={columns}
-                  autoHeight
-                  pageSizeOptions={[5, 10, 20]}
-                />
-              </List>
+              <DataGrid
+                {...dataGridProps}
+                columns={columns}
+                pageSizeOptions={[5, 10, 20]}
+              />
             </Grid>
           </Grid>
         </Show>
