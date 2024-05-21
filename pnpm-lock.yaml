@@ -56,6 +56,9 @@ dependencies:
   '@refinedev/supabase':
     specifier: ^5.7.4
     version: 5.7.10(@refinedev/core@4.49.2)(@supabase/supabase-js@2.43.2)
+  '@refinedev/ui-types':
+    specifier: ^1.22.7
+    version: 1.22.7(@refinedev/core@4.49.2)(react-dom@18.3.1)(react@18.3.1)
   dayjs:
     specifier: ^1.11.11
     version: 1.11.11
