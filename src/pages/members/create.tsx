@@ -72,32 +72,6 @@ export const MemberCreate = () => {
           label="Joindate"
           name="joindate"
         />
-
-        <TextField
-          {...register("createdat", {
-            required: "This field is required",
-          })}
-          error={!!(errors as any)?.createdat}
-          helperText={(errors as any)?.createdat?.message}
-          margin="normal"
-          fullWidth
-          InputLabelProps={{ shrink: true }}
-          label="Createdat"
-          name="createdat"
-        />
-
-        <TextField
-          {...register("updatedat", {
-            required: "This field is required",
-          })}
-          error={!!(errors as any)?.updatedat}
-          helperText={(errors as any)?.updatedat?.message}
-          margin="normal"
-          fullWidth
-          InputLabelProps={{ shrink: true }}
-          label="Updatedat"
-          name="updatedat"
-        />
       </Box>
     </Create>
   );

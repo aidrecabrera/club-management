@@ -73,24 +73,6 @@ export const StudentList = () => {
         minWidth: 200,
       },
       {
-        field: "createdate",
-        flex: 1,
-        headerName: "Create Date",
-        minWidth: 250,
-        renderCell: function render({ value }) {
-          return <DateField value={value} />;
-        },
-      },
-      {
-        field: "updatedate",
-        flex: 1,
-        headerName: "Updated Date",
-        minWidth: 250,
-        renderCell: function render({ value }) {
-          return <DateField value={value} />;
-        },
-      },
-      {
         field: "actions",
         headerName: "Actions",
         sortable: false,

@@ -53,24 +53,6 @@ export const MemberList = () => {
         },
       },
       {
-        field: "createdat",
-        flex: 1,
-        headerName: "Create Date",
-        minWidth: 250,
-        renderCell: function render({ value }) {
-          return <DateField value={value} />;
-        },
-      },
-      {
-        field: "updatedat",
-        flex: 1,
-        headerName: "Update Date",
-        minWidth: 250,
-        renderCell: function render({ value }) {
-          return <DateField value={value} />;
-        },
-      },
-      {
         field: "actions",
         headerName: "Actions",
         sortable: false,

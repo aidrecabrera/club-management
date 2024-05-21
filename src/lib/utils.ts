@@ -17,3 +17,28 @@ export const convertDateFormat = (dateString: string) => {
   };
   return date.toLocaleDateString(undefined, options);
 };
+
+export const getRandomGradient = () => {
+  const colors = [
+    "#FF5733",
+    "#33FF57",
+    "#3357FF",
+    "#F3FF33",
+    "#FF33F3",
+    "#33FFF5",
+    "#F533FF",
+    "#57FF33",
+    "#5733FF",
+    "#33FF57",
+    "#FF3357",
+    "#F5FF33",
+  ];
+  const color1 = colors[Math.floor(Math.random() * colors.length)];
+  const color2 = colors[Math.floor(Math.random() * colors.length)];
+  return `linear-gradient(135deg, ${color1}, ${color2})`;
+};
+
+export const getRandomImageUrl = () => {
+  const randomSeed = Math.floor(Math.random() * 1000);
+  return `https://picsum.photos/seed/${randomSeed}/200/100`;
+};

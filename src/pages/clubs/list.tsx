@@ -1,3 +1,4 @@
+import { getRandomImageUrl } from "@/lib/utils";
 import {
   Box,
   Card,
@@ -8,6 +9,7 @@ import {
   Grid,
   Pagination,
   TextField,
+  Theme,
   Typography,
   useMediaQuery,
 } from "@mui/material";
@@ -26,7 +28,9 @@ export const ClubList = () => {
   const [options, setOptions] = useState<readonly TClubs[]>([]);
   const [search, setSearch] = useState("");
   const loading = open && options.length === 0;
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down("sm")
+  );
 
   const { data, isLoading } = useList({
     resource: "clubs",
@@ -39,7 +43,7 @@ export const ClubList = () => {
 
   const { data: clubOptions, isLoading: optionsLoading } = useList({
     resource: "clubs",
-    pagination: { current: 1, pageSize: 1000 }, // Load all for autocomplete options
+    pagination: { current: 1, pageSize: 1000 },
     meta: {
       fields: ["id", "clubname"],
     },
@@ -118,6 +122,10 @@ export const ClubList = () => {
         <Box display="flex" justifyContent="center" marginTop={2}>
           <CircularProgress />
         </Box>
+      ) : clubs.length === 0 ? (
+        <Box display="flex" justifyContent="center" marginTop={2}>
+          <Typography variant="h6">No Clubs Registered</Typography>
+        </Box>
       ) : (
         <Grid container spacing={2} marginTop={2}>
           {clubs.map((club) => (
@@ -127,8 +135,8 @@ export const ClubList = () => {
                   <CardMedia
                     component="img"
                     height="140"
-                    image="https://mui.com/static/images/cards/contemplative-reptile.jpg"
-                    alt="green iguana"
+                    image={getRandomImageUrl()}
+                    alt="club image"
                   />
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
@@ -144,14 +152,16 @@ export const ClubList = () => {
           ))}
         </Grid>
       )}
-      <Box display="flex" justifyContent="center" marginTop={2}>
-        <Pagination
-          count={data && data.total ? Math.ceil(data.total / 8) : 1}
-          page={current}
-          onChange={(_, page) => setCurrent(page)}
-          sx={{ width: "auto" }}
-        />
-      </Box>
+      {clubs.length === 0 ?? (
+        <Box display="flex" justifyContent="center" marginTop={2}>
+          <Pagination
+            count={data && data.total ? Math.ceil(data.total / 8) : 1}
+            page={current}
+            onChange={(_, page) => setCurrent(page)}
+            sx={{ width: "auto" }}
+          />
+        </Box>
+      )}
     </Box>
   );
 };

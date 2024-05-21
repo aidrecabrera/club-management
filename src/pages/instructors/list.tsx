@@ -1,7 +1,6 @@
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useMany } from "@refinedev/core";
 import {
-  DateField,
   DeleteButton,
   EditButton,
   EmailField,
@@ -57,24 +56,6 @@ export const InstructorList = () => {
         flex: 1,
         headerName: "Phone",
         minWidth: 200,
-      },
-      {
-        field: "createdat",
-        flex: 1,
-        headerName: "Create Date",
-        minWidth: 250,
-        renderCell: function render({ value }) {
-          return <DateField value={value} />;
-        },
-      },
-      {
-        field: "updatedat",
-        flex: 1,
-        headerName: "Update Date",
-        minWidth: 250,
-        renderCell: function render({ value }) {
-          return <DateField value={value} />;
-        },
       },
       {
         field: "actions",
