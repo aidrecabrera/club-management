@@ -48,7 +48,7 @@ export const ClubCreate = () => {
           fullWidth
           InputLabelProps={{ shrink: true }}
           type="text"
-          label="Clubname"
+          label="Club Name"
           name="clubname"
         />
         <TextField
@@ -81,26 +81,29 @@ export const ClubCreate = () => {
           name="meetingday"
           control={control}
           render={({ field: { onChange, value }, fieldState: { error } }) => (
-            <Select
-              value={value || ""}
-              onChange={(e) => {
-                const day = e.target.value;
-                onChange(day);
-                setValue("meetingday", day as any);
-              }}
-              error={!!error}
-              label="Meeting Day"
-              name="meetingday"
-              fullWidth
-            >
-              <MenuItem value="Monday">Monday</MenuItem>
-              <MenuItem value="Tuesday">Tuesday</MenuItem>
-              <MenuItem value="Wednesday">Wednesday</MenuItem>
-              <MenuItem value="Thursday">Thursday</MenuItem>
-              <MenuItem value="Friday">Friday</MenuItem>
-              <MenuItem value="Saturday">Saturday</MenuItem>
-              <MenuItem value="Sunday">Sunday</MenuItem>
-            </Select>
+            <>
+              <Select
+                sx={{ marginTop: 1, marginBottom: 1 }}
+                value={value || ""}
+                onChange={(e) => {
+                  const day = e.target.value;
+                  onChange(day);
+                  setValue("meetingday", day as any);
+                }}
+                error={!!error}
+                label="Meeting Day"
+                name="meetingday"
+                fullWidth
+              >
+                <MenuItem value="Monday">Monday</MenuItem>
+                <MenuItem value="Tuesday">Tuesday</MenuItem>
+                <MenuItem value="Wednesday">Wednesday</MenuItem>
+                <MenuItem value="Thursday">Thursday</MenuItem>
+                <MenuItem value="Friday">Friday</MenuItem>
+                <MenuItem value="Saturday">Saturday</MenuItem>
+                <MenuItem value="Sunday">Sunday</MenuItem>
+              </Select>
+            </>
           )}
         />
         <Controller
@@ -109,6 +112,7 @@ export const ClubCreate = () => {
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
+                sx={{ marginTop: 1, marginBottom: 1 }}
                 label="Meeting Time"
                 value={value ? dayjs(value, "HH:mm:ss") : null}
                 onChange={(time) => {
@@ -140,7 +144,7 @@ export const ClubCreate = () => {
           fullWidth
           InputLabelProps={{ shrink: true }}
           type="number"
-          label="Roomnumber"
+          label="Room Number"
           name="roomnumber"
         />
       </Box>

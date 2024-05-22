@@ -1,3 +1,4 @@
+import { List } from "@/components/crud/list";
 import { Show } from "@/components/crud/show";
 import { convertDateFormat, convertTimeFormat } from "@/lib/utils";
 import { TableType } from "@/types/types";
@@ -118,11 +119,9 @@ export const ClubShow = () => {
               </Card>
             </Grid>
             <Grid item xs={12} md={12} lg={9}>
-              <DataGrid
-                {...dataGridProps}
-                columns={columns}
-                pageSizeOptions={[5, 10, 20]}
-              />
+              <List title={"Members"} breadcrumb={false} resource="members">
+                <DataGrid {...dataGridProps} columns={columns} autoHeight />
+              </List>
             </Grid>
           </Grid>
         </Show>

@@ -70,13 +70,14 @@ export const ClubEdit = () => {
           {...register("advisorid", {
             valueAsNumber: true,
           })}
+          sx={{ marginTop: 2, marginBottom: 2 }}
           error={!!(errors as any)?.advisorid}
           helperText={(errors as any)?.advisorid?.message}
           margin="normal"
           fullWidth
           InputLabelProps={{ shrink: true }}
           type="number"
-          label="Advisorid"
+          label="Advisor ID"
           name="advisorid"
         />
         <Controller
@@ -85,6 +86,7 @@ export const ClubEdit = () => {
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <Select
               value={value || ""}
+              sx={{ marginTop: 0, marginBottom: 3 }}
               onChange={(e) => {
                 const day = e.target.value;
                 onChange(day);
@@ -111,6 +113,7 @@ export const ClubEdit = () => {
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
+                sx={{ marginTop: 0, marginBottom: 1 }}
                 label="Meeting Time"
                 value={value ? dayjs(value, "HH:mm:ss") : null}
                 onChange={(time) => {

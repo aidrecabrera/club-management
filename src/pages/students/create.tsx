@@ -32,7 +32,7 @@ export const StudentCreate = () => {
           fullWidth
           InputLabelProps={{ shrink: true }}
           type="text"
-          label="Firstname"
+          label="First Name"
           name="firstname"
         />
         <TextField
@@ -45,7 +45,7 @@ export const StudentCreate = () => {
           fullWidth
           InputLabelProps={{ shrink: true }}
           type="text"
-          label="Lastname"
+          label="Last Name"
           name="lastname"
         />
         <Controller
@@ -54,6 +54,7 @@ export const StudentCreate = () => {
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
+                sx={{ marginTop: 1, marginBottom: 1 }}
                 label="Date of Birth"
                 value={value}
                 onChange={(date) => {

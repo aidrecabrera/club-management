@@ -28,7 +28,7 @@ export const InstructorCreate = () => {
           fullWidth
           InputLabelProps={{ shrink: true }}
           type="text"
-          label="Firstname"
+          label="First Name"
           name="firstname"
         />
         <TextField
@@ -41,7 +41,7 @@ export const InstructorCreate = () => {
           fullWidth
           InputLabelProps={{ shrink: true }}
           type="text"
-          label="Lastname"
+          label="Last Name"
           name="lastname"
         />
         <TextField

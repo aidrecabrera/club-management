@@ -29,7 +29,7 @@ export const MemberCreate = () => {
           fullWidth
           InputLabelProps={{ shrink: true }}
           type="number"
-          label="Clubid"
+          label="Club ID"
           name="clubid"
         />
         <TextField
@@ -43,7 +43,7 @@ export const MemberCreate = () => {
           fullWidth
           InputLabelProps={{ shrink: true }}
           type="number"
-          label="Studentid"
+          label="Student ID"
           name="studentid"
         />
         <TextField
@@ -58,19 +58,6 @@ export const MemberCreate = () => {
           type="text"
           label="Role"
           name="role"
-        />
-
-        <TextField
-          {...register("joindate", {
-            required: "This field is required",
-          })}
-          error={!!(errors as any)?.joindate}
-          helperText={(errors as any)?.joindate?.message}
-          margin="normal"
-          fullWidth
-          InputLabelProps={{ shrink: true }}
-          label="Joindate"
-          name="joindate"
         />
       </Box>
     </Create>

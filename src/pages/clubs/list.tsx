@@ -1,10 +1,8 @@
-import { getRandomImageUrl } from "@/lib/utils";
 import {
   Box,
   Card,
   CardActionArea,
   CardContent,
-  CardMedia,
   CircularProgress,
   Grid,
   Pagination,
@@ -132,12 +130,7 @@ export const ClubList = () => {
             <Grid item key={club.id} xs={12} md={6} lg={3}>
               <Card>
                 <CardActionArea onClick={() => show("clubs", club.id)}>
-                  <CardMedia
-                    component="img"
-                    height="140"
-                    image={getRandomImageUrl()}
-                    alt="club image"
-                  />
+                  <Box height="150px" bgcolor="red" />
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
                       {club.clubname}
