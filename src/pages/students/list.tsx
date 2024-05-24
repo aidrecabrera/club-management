@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import {
   DateField,
@@ -17,45 +18,46 @@ export const StudentList = () => {
     () => [
       {
         field: "id",
-        flex: 1,
+        flex: 0.5,
         headerName: "ID",
         type: "number",
-        minWidth: 100,
-        align: "center",
-        headerAlign: "center",
+        minWidth: 50,
+        maxWidth: 100,
+        align: "left",
+        headerAlign: "left",
       },
       {
         field: "firstname",
         flex: 1,
         headerName: "First Name",
-        minWidth: 200,
+        minWidth: 150,
       },
       {
         field: "lastname",
         flex: 1,
         headerName: "Last Name",
-        minWidth: 200,
+        minWidth: 150,
       },
       {
         field: "dateofbirth",
         flex: 1,
         headerName: "Date of Birth",
-        minWidth: 250,
+        minWidth: 150,
         renderCell: function render({ value }) {
           return <DateField value={value} />;
         },
       },
       {
         field: "gender",
-        flex: 1,
+        flex: 0.5,
         headerName: "Gender",
-        minWidth: 200,
+        maxWidth: 100,
       },
       {
         field: "email",
-        flex: 1,
+        flex: 1.5,
         headerName: "Email",
-        minWidth: 250,
+        minWidth: 200,
         renderCell: function render({ value }) {
           return <EmailField value={value} />;
         },
@@ -64,16 +66,17 @@ export const StudentList = () => {
         field: "phone",
         flex: 1,
         headerName: "Phone",
-        minWidth: 200,
+        minWidth: 150,
       },
       {
         field: "address",
-        flex: 1,
+        flex: 1.5,
         headerName: "Address",
         minWidth: 200,
       },
       {
         field: "actions",
+        flex: 0.7,
         headerName: "Actions",
         sortable: false,
         renderCell: function render({ row }) {
@@ -87,20 +90,23 @@ export const StudentList = () => {
         },
         align: "center",
         headerAlign: "center",
-        minWidth: 80,
+        minWidth: 100,
       },
     ],
     []
   );
 
   return (
-    <List>
-      <DataGrid
-        {...dataGridProps}
-        getRowId={(row) => row?.id}
-        columns={columns}
-        autoHeight
-      />
-    </List>
+    <Box sx={{ width: "100%", overflow: "hidden" }}>
+      <List>
+        <DataGrid
+          {...dataGridProps}
+          getRowId={(row) => row?.id}
+          columns={columns}
+          autoHeight
+          disableColumnMenu
+        />
+      </List>
+    </Box>
   );
 };

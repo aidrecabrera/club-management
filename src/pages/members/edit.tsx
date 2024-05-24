@@ -76,7 +76,6 @@ export const MemberEdit = () => {
           label="Role"
           name="role"
         />
-
         <TextField
           {...register("joindate", {
             required: "This field is required",
@@ -86,34 +85,8 @@ export const MemberEdit = () => {
           margin="normal"
           fullWidth
           InputLabelProps={{ shrink: true }}
-          label="Joindate"
+          label="Joined Date"
           name="joindate"
-        />
-
-        <TextField
-          {...register("createdat", {
-            required: "This field is required",
-          })}
-          error={!!(errors as any)?.createdat}
-          helperText={(errors as any)?.createdat?.message}
-          margin="normal"
-          fullWidth
-          InputLabelProps={{ shrink: true }}
-          label="Createdat"
-          name="createdat"
-        />
-
-        <TextField
-          {...register("updatedat", {
-            required: "This field is required",
-          })}
-          error={!!(errors as any)?.updatedat}
-          helperText={(errors as any)?.updatedat?.message}
-          margin="normal"
-          fullWidth
-          InputLabelProps={{ shrink: true }}
-          label="Updatedat"
-          name="updatedat"
         />
       </Box>
     </Edit>

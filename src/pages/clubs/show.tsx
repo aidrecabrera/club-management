@@ -25,15 +25,26 @@ import {
 } from "@refinedev/mui";
 import { useMemo } from "react";
 
+type TClubInformation = TableType<"clubs"> & {
+  instructors: Pick<
+    TableType<"instructors">,
+    "firstname" | "lastname" | "email" | "phone"
+  >;
+};
+
 export const ClubShow = () => {
-  const { queryResult } = useShow();
+  const { queryResult } = useShow({
+    meta: {
+      select: "*, instructors(firstname, lastname, email, phone)",
+    },
+  });
   const { data, isLoading } = queryResult;
   const { id } = useParsed();
-  const record = data?.data as TableType<"clubs">;
+  const record = data?.data as TClubInformation;
   const { dataGridProps, setFilters } = useDataGrid({
     resource: "members",
     filters: {
-      initial: [
+      permanent: [
         {
           field: "clubid",
           value: id,
@@ -55,7 +66,7 @@ export const ClubShow = () => {
     const isNumeric = !isNaN(Number(value));
     setFilters([
       {
-        field: isNumeric ? "studentid.studentid" : "students.id",
+        field: isNumeric ? "studentid" : "studentid",
         value: isNumeric ? Number(value) : value,
         operator: isNumeric ? "eq" : "contains",
       },
@@ -127,22 +138,8 @@ export const ClubShow = () => {
         renderCell: function render({ row }) {
           return (
             <>
-              <ShowButton
-                hideText
-                resource="students"
-                recordItemId={53}
-                meta={{
-                  student_id: 53,
-                }}
-              />
-              <DeleteButton
-                hideText
-                resource="students"
-                recordItemId={53}
-                meta={{
-                  student_id: 53,
-                }}
-              />
+              <ShowButton hideText resource="members" recordItemId={row.id} />
+              <DeleteButton hideText resource="members" recordItemId={row.id} />
             </>
           );
         },
@@ -184,6 +181,31 @@ export const ClubShow = () => {
                     }}
                   />
                   <Typography variant="body2" color="text.secondary">
+                    Advisor:{" "}
+                    {`${
+                      record.instructors?.firstname ||
+                      record.instructors?.lastname
+                        ? `${record.instructors?.firstname || ""} ${
+                            record.instructors?.lastname || ""
+                          }`
+                        : "N/A"
+                    }`}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Email: {record.instructors?.email || "N/A"}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Phone: {record.instructors?.phone || "N/A"}
+                  </Typography>
+                  <Divider
+                    sx={{
+                      margin: "10px 0",
+                    }}
+                  />
+                  <Typography variant="body2" color="text.secondary">
+                    Room Number: {record.roomnumber}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
                     Meeting: {record.meetingday} @{" "}
                     {convertTimeFormat(
                       (record.meetingtime as string) || "00:00"
@@ -213,7 +235,11 @@ export const ClubShow = () => {
                               marginLeft: "25px",
                             }}
                             onChange={(e) => {
-                              handleFilter(e.target.value);
+                              if (e.target.value) {
+                                handleFilter(e.target.value);
+                              } else {
+                                setFilters([]);
+                              }
                             }}
                           />
                         }
