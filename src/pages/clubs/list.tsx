@@ -58,12 +58,6 @@ export const ClubList = () => {
     }
   }, [data, clubOptions]);
 
-  useEffect(() => {
-    if (!open) {
-      setOptions([]);
-    }
-  }, [open]);
-
   const filteredOptions = options.filter((option) =>
     option.clubname.toLowerCase().includes(search.toLowerCase())
   );
@@ -85,7 +79,7 @@ export const ClubList = () => {
             onClose={() => setOpen(false)}
             onInputChange={(event, value) => {
               setSearch(value);
-              setOpen(true); // Reopen autocomplete on input change
+              setOpen(true);
             }}
             isOptionEqualToValue={(option, value) =>
               option.clubname === value.clubname
