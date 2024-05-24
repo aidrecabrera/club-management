@@ -1,4 +1,11 @@
-import { Box, TextField } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { Create } from "@refinedev/mui";
@@ -70,19 +77,28 @@ export const StudentCreate = () => {
             </LocalizationProvider>
           )}
         />
-        <TextField
-          {...register("gender", {
-            required: "This field is required",
-          })}
-          error={!!(errors as any)?.gender}
-          helperText={(errors as any)?.gender?.message}
-          margin="normal"
-          fullWidth
-          InputLabelProps={{ shrink: true }}
-          type="text"
-          label="Gender"
-          name="gender"
-        />
+        <FormControl margin="normal" fullWidth>
+          <InputLabel
+            sx={{
+              backgroundColor: "white",
+              paddingX: 0.5,
+            }}
+            id="demo-simple-select-label"
+          >
+            Gender
+          </InputLabel>
+          <Select
+            {...register("gender", {
+              required: "This field is required",
+            })}
+            labelId="demo-simple-select-label"
+            error={!!(errors as any)?.gender}
+            name="gender"
+          >
+            <MenuItem value="M">Male</MenuItem>
+            <MenuItem value="F">Female</MenuItem>
+          </Select>
+        </FormControl>
         <TextField
           {...register("email", {
             required: "This field is required",

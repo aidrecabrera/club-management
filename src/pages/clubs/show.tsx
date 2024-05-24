@@ -7,13 +7,20 @@ import {
   CardContent,
   CardHeader,
   Divider,
+  FormControlLabel,
   Grid,
   IconButton,
+  TextField,
   Typography,
 } from "@mui/material";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { useShow } from "@refinedev/core";
 import {
+  DataGrid,
+  GridColDef,
+  GridValueFormatterParams,
+} from "@mui/x-data-grid";
+import { BaseOption, useParsed, useSelect, useShow } from "@refinedev/core";
+import {
+  CreateButton,
   DateField,
   DeleteButton,
   EditButton,
@@ -25,12 +32,37 @@ import { useMemo } from "react";
 export const ClubShow = () => {
   const { queryResult } = useShow();
   const { data, isLoading } = queryResult;
-
+  const { id } = useParsed();
   const record = data?.data as TableType<"clubs">;
-
-  const { dataGridProps } = useDataGrid({
+  const { dataGridProps, setFilters } = useDataGrid({
     resource: "members",
+    filters: {
+      initial: [
+        {
+          field: "clubid",
+          value: id,
+          operator: "eq",
+        },
+      ],
+    },
   });
+  const {
+    options,
+    queryResult: { isLoading: membersLoading },
+  } = useSelect<TableType<"students">>({
+    resource: "students",
+    hasPagination: false,
+  });
+
+  const handleFilter = (value: string) => {
+    setFilters([
+      {
+        field: "studentid",
+        value: value ? value : undefined,
+        operator: "eq",
+      },
+    ]);
+  };
 
   const columns = useMemo<GridColDef[]>(
     () => [
@@ -41,6 +73,26 @@ export const ClubShow = () => {
         type: "number",
         align: "left",
         headerAlign: "left",
+      },
+      {
+        field: "students.id",
+        headerName: "First Name",
+        type: "singleSelect",
+        headerAlign: "left",
+        align: "left",
+        minWidth: 250,
+        flex: 0.5,
+        valueOptions: options,
+        valueFormatter: (params: GridValueFormatterParams<BaseOption>) => {
+          return params.value;
+        },
+        renderCell: function render({ row }) {
+          const student = options.find((item) => {
+            return item.value.toString() === row.students.studentid.toString();
+          });
+          console.log(student);
+          return "Test";
+        },
       },
       {
         field: "role",
@@ -119,7 +171,42 @@ export const ClubShow = () => {
               </Card>
             </Grid>
             <Grid item xs={12} md={12} lg={9}>
-              <List title={"Members"} breadcrumb={false} resource="members">
+              <List
+                headerButtons={() => {
+                  return (
+                    <div className="flex flex-row items-center justify-center">
+                      <FormControlLabel
+                        label={""}
+                        control={
+                          <TextField
+                            size="small"
+                            margin="normal"
+                            fullWidth
+                            label="Search Members"
+                            name="member"
+                            sx={{
+                              marginLeft: "25px",
+                            }}
+                            onChange={(e) => {
+                              handleFilter(e.target.value);
+                            }}
+                          />
+                        }
+                      />
+                      <CreateButton
+                        resource="members"
+                        meta={{
+                          clubid: record.id,
+                        }}
+                      />
+                    </div>
+                  );
+                }}
+                canCreate={true}
+                title={"Members"}
+                breadcrumb={false}
+                resource="members"
+              >
                 <DataGrid {...dataGridProps} columns={columns} autoHeight />
               </List>
             </Grid>

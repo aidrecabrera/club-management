@@ -4,8 +4,8 @@ import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
 import {
   AuthPage,
   ErrorComponent,
-  notificationProvider,
   RefineSnackbarProvider,
+  useNotificationProvider,
 } from "@refinedev/mui";
 
 import CssBaseline from "@mui/material/CssBaseline";
@@ -63,7 +63,7 @@ function App() {
               liveProvider={liveProvider(supabaseClient)}
               authProvider={authProvider}
               routerProvider={routerBindings}
-              notificationProvider={notificationProvider}
+              notificationProvider={useNotificationProvider}
               resources={[
                 {
                   name: "clubs",
@@ -78,7 +78,7 @@ function App() {
                 {
                   name: "members",
                   list: "/members",
-                  create: "/members/create",
+                  create: "/members/create/:clubid",
                   edit: "/members/edit/:id",
                   show: "/members/show/:id",
                   meta: {
@@ -111,6 +111,7 @@ function App() {
                 warnWhenUnsavedChanges: true,
                 useNewQueryKeys: true,
                 projectId: "S5sYuY-z9XTAF-2ZdNkS",
+                liveMode: "auto",
               }}
             >
               <Routes>
@@ -142,7 +143,7 @@ function App() {
                   </Route>
                   <Route path="/members">
                     <Route index element={<MemberList />} />
-                    <Route path="create" element={<MemberCreate />} />
+                    <Route path="create/:clubid" element={<MemberCreate />} />
                     <Route path="edit/:id" element={<MemberEdit />} />
                     <Route path="show/:id" element={<MemberShow />} />
                   </Route>

@@ -1,5 +1,6 @@
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import {
+  CreateButton,
   DateField,
   DeleteButton,
   EditButton,
@@ -74,7 +75,19 @@ export const MemberList = () => {
   );
 
   return (
-    <List>
+    <List
+      headerButtons={() => {
+        return (
+          <>
+            <CreateButton
+              meta={{
+                clubid: "new",
+              }}
+            />
+          </>
+        );
+      }}
+    >
       <DataGrid {...dataGridProps} columns={columns} autoHeight />
     </List>
   );
