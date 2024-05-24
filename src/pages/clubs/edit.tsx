@@ -1,7 +1,8 @@
-import { Box, MenuItem, Select, TextField } from "@mui/material";
+import { Autocomplete, Box, MenuItem, Select, TextField } from "@mui/material";
 import { LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { Edit } from "@refinedev/mui";
+import { useOne } from "@refinedev/core";
+import { Edit, useAutocomplete } from "@refinedev/mui";
 import { useForm } from "@refinedev/react-hook-form";
 import dayjs from "dayjs";
 import { Controller } from "react-hook-form";
@@ -16,7 +17,21 @@ export const ClubEdit = () => {
     setValue,
   } = useForm();
 
-  const clubsData = queryResult?.data?.data;
+  const { autocompleteProps } = useAutocomplete({
+    resource: "instructors",
+    meta: {
+      select: "id, firstname, lastname",
+    },
+    defaultValue: 2,
+  });
+
+  const { data: instructorsData } = useOne({
+    resource: "instructors",
+    id: queryResult?.data?.data?.advisorid,
+    meta: {
+      select: "id, firstname, lastname",
+    },
+  });
 
   return (
     <Edit saveButtonProps={saveButtonProps}>
@@ -36,7 +51,7 @@ export const ClubEdit = () => {
           fullWidth
           InputLabelProps={{ shrink: true }}
           type="number"
-          label="Id"
+          label="Club ID"
           name="id"
           disabled
         />
@@ -50,7 +65,7 @@ export const ClubEdit = () => {
           fullWidth
           InputLabelProps={{ shrink: true }}
           type="text"
-          label="Clubname"
+          label="Club Name"
           name="clubname"
         />
         <TextField
@@ -66,19 +81,25 @@ export const ClubEdit = () => {
           label="Description"
           name="description"
         />
-        <TextField
-          {...register("advisorid", {
-            valueAsNumber: true,
-          })}
-          sx={{ marginTop: 2, marginBottom: 2 }}
-          error={!!(errors as any)?.advisorid}
-          helperText={(errors as any)?.advisorid?.message}
-          margin="normal"
-          fullWidth
-          InputLabelProps={{ shrink: true }}
-          type="number"
-          label="Advisor ID"
-          name="advisorid"
+        <Autocomplete
+          {...autocompleteProps}
+          getOptionLabel={(item) => `${item.firstname} ${item.lastname}`}
+          isOptionEqualToValue={(option, value) =>
+            value === undefined ||
+            option?.id?.toString() === (value?.id ?? value)?.toString()
+          }
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Instructor"
+              margin="normal"
+              variant="outlined"
+              required
+            />
+          )}
+          onChange={(_, value) => {
+            setValue("advisorid", value?.id);
+          }}
         />
         <Controller
           name="meetingday"
