@@ -6,6 +6,7 @@ import {
   Card,
   CardContent,
   CardHeader,
+  CircularProgress,
   Divider,
   FormControlLabel,
   Grid,
@@ -13,17 +14,12 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import {
-  DataGrid,
-  GridColDef,
-  GridValueFormatterParams,
-} from "@mui/x-data-grid";
-import { BaseOption, useParsed, useSelect, useShow } from "@refinedev/core";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { useList, useParsed, useShow } from "@refinedev/core";
 import {
   CreateButton,
   DateField,
   DeleteButton,
-  EditButton,
   ShowButton,
   useDataGrid,
 } from "@refinedev/mui";
@@ -46,20 +42,22 @@ export const ClubShow = () => {
       ],
     },
   });
-  const {
-    options,
-    queryResult: { isLoading: membersLoading },
-  } = useSelect<TableType<"students">>({
+
+  const { data: studentsData, isLoading: studentsLoading } = useList<
+    TableType<"students">
+  >({
     resource: "students",
-    hasPagination: false,
+    filters: [],
   });
+  const students = studentsData?.data;
 
   const handleFilter = (value: string) => {
+    const isNumeric = !isNaN(Number(value));
     setFilters([
       {
-        field: "studentid",
-        value: value ? value : undefined,
-        operator: "eq",
+        field: isNumeric ? "studentid.studentid" : "students.id",
+        value: isNumeric ? Number(value) : value,
+        operator: isNumeric ? "eq" : "contains",
       },
     ]);
   };
@@ -75,23 +73,38 @@ export const ClubShow = () => {
         headerAlign: "left",
       },
       {
-        field: "students.id",
-        headerName: "First Name",
-        type: "singleSelect",
-        headerAlign: "left",
-        align: "left",
-        minWidth: 250,
-        flex: 0.5,
-        valueOptions: options,
-        valueFormatter: (params: GridValueFormatterParams<BaseOption>) => {
-          return params.value;
-        },
+        field: "name",
+        headerName: "Name",
+        flex: 1,
+        minWidth: 200,
         renderCell: function render({ row }) {
-          const student = options.find((item) => {
-            return item.value.toString() === row.students.studentid.toString();
-          });
-          console.log(student);
-          return "Test";
+          const student = students?.find(
+            (student) => student.id === row.studentid
+          );
+          return student ? `${student.firstname} ${student.lastname}` : "N/A";
+        },
+      },
+      {
+        field: "email",
+        headerName: "Email",
+        flex: 1,
+        minWidth: 200,
+        renderCell: function render({ row }) {
+          const student = students?.find(
+            (student) => student.id === row.studentid
+          );
+          return student?.email || "N/A";
+        },
+      },
+      {
+        field: "phone",
+        headerName: "Phone",
+        flex: 1,
+        renderCell: function render({ row }) {
+          const student = students?.find(
+            (student) => student.id === row.studentid
+          );
+          return student?.phone || "N/A";
         },
       },
       {
@@ -103,7 +116,6 @@ export const ClubShow = () => {
         field: "joindate",
         flex: 1,
         headerName: "Join Date",
-
         renderCell: function render({ value }) {
           return <DateField value={value} />;
         },
@@ -115,9 +127,22 @@ export const ClubShow = () => {
         renderCell: function render({ row }) {
           return (
             <>
-              <EditButton hideText recordItemId={row.id} />
-              <ShowButton hideText recordItemId={row.id} />
-              <DeleteButton hideText recordItemId={row.id} />
+              <ShowButton
+                hideText
+                resource="students"
+                recordItemId={53}
+                meta={{
+                  student_id: 53,
+                }}
+              />
+              <DeleteButton
+                hideText
+                resource="students"
+                recordItemId={53}
+                meta={{
+                  student_id: 53,
+                }}
+              />
             </>
           );
         },
@@ -125,7 +150,7 @@ export const ClubShow = () => {
         headerAlign: "center",
       },
     ],
-    []
+    [students]
   );
 
   return (
@@ -212,7 +237,9 @@ export const ClubShow = () => {
             </Grid>
           </Grid>
         </Show>
-      ) : null}
+      ) : (
+        <CircularProgress />
+      )}
     </>
   );
 };
