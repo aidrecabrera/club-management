@@ -89,8 +89,8 @@ function App() {
                   name: "students",
                   list: "/students",
                   create: "/students/create",
-                  edit: "/students/edit/:student_id",
-                  show: "/students/show/:student_id",
+                  edit: "/students/edit/:id",
+                  show: "/students/show/:id",
                   meta: {
                     canDelete: true,
                   },
@@ -150,8 +150,8 @@ function App() {
                   <Route path="/students">
                     <Route index element={<StudentList />} />
                     <Route path="create" element={<StudentCreate />} />
-                    <Route path="edit/:student_id" element={<StudentEdit />} />
-                    <Route path="show/:student_id" element={<StudentShow />} />
+                    <Route path="edit/:id" element={<StudentEdit />} />
+                    <Route path="show/:id" element={<StudentShow />} />
                   </Route>
                   <Route path="/instructors">
                     <Route index element={<InstructorList />} />

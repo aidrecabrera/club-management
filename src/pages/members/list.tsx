@@ -11,7 +11,12 @@ import {
 import React from "react";
 
 export const MemberList = () => {
-  const { dataGridProps } = useDataGrid();
+  const { dataGridProps } = useDataGrid({
+    resource: "members",
+    meta: {
+      select: "id, clubid, studentid, role, joindate, studentid(*)",
+    },
+  });
 
   const columns = React.useMemo<GridColDef[]>(
     () => [
@@ -37,12 +42,24 @@ export const MemberList = () => {
         type: "number",
         minWidth: 100,
         maxWidth: 150,
+        renderCell: function render({ value }) {
+          return value?.id;
+        },
+      },
+      {
+        field: "name",
+        flex: 1,
+        headerName: "Student Name",
+        minWidth: 200,
+        renderCell: function render({ row }) {
+          return `${row.studentid?.firstname} ${row.studentid?.lastname}`;
+        },
       },
       {
         field: "role",
         flex: 1,
         headerName: "Role",
-        minWidth: 200,
+        minWidth: 100,
       },
       {
         field: "joindate",

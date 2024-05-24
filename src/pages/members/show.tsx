@@ -8,7 +8,11 @@ import {
 } from "@refinedev/mui";
 
 export const MemberShow = () => {
-  const { queryResult } = useShow();
+  const { queryResult } = useShow({
+    meta: {
+      select: "*, studentid(*)",
+    },
+  });
   const { data, isLoading } = queryResult;
 
   const record = data?.data;
@@ -17,33 +21,29 @@ export const MemberShow = () => {
     <Show isLoading={isLoading}>
       <Stack gap={1}>
         <Typography variant="body1" fontWeight="bold">
-          Id
-        </Typography>
-        <NumberField value={record?.id ?? ""} />
-        <Typography variant="body1" fontWeight="bold">
-          Clubid
+          Club ID
         </Typography>
         <NumberField value={record?.clubid ?? ""} />
         <Typography variant="body1" fontWeight="bold">
-          Studentid
+          Student ID
         </Typography>
-        <NumberField value={record?.studentid ?? ""} />
+        <NumberField value={record?.studentid.id ?? ""} />
+        <Typography variant="body1" fontWeight="bold">
+          Firstname
+        </Typography>
+        <TextField value={record?.studentid?.firstname} />
+        <Typography variant="body1" fontWeight="bold">
+          Lastname
+        </Typography>
+        <TextField value={record?.studentid?.lastname} />
         <Typography variant="body1" fontWeight="bold">
           Role
         </Typography>
         <TextField value={record?.role} />
         <Typography variant="body1" fontWeight="bold">
-          Joindate
+          Registered at
         </Typography>
         <DateField value={record?.joindate} />
-        <Typography variant="body1" fontWeight="bold">
-          Createdat
-        </Typography>
-        <DateField value={record?.createdat} />
-        <Typography variant="body1" fontWeight="bold">
-          Updatedat
-        </Typography>
-        <DateField value={record?.updatedat} />
       </Stack>
     </Show>
   );

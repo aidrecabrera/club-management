@@ -58,17 +58,22 @@ export const ClubShow = () => {
     TableType<"students">
   >({
     resource: "students",
-    filters: [],
+    filters: [
+      {
+        field: "id",
+        operator: "in",
+        value: dataGridProps.rows.map((row) => row.studentid),
+      },
+    ],
   });
   const students = studentsData?.data;
 
   const handleFilter = (value: string) => {
-    const isNumeric = !isNaN(Number(value));
     setFilters([
       {
-        field: isNumeric ? "studentid" : "studentid",
-        value: isNumeric ? Number(value) : value,
-        operator: isNumeric ? "eq" : "contains",
+        field: "studentid",
+        value: Number(value),
+        operator: "eq",
       },
     ]);
   };
@@ -229,7 +234,7 @@ export const ClubShow = () => {
                             size="small"
                             margin="normal"
                             fullWidth
-                            label="Search Members"
+                            label="Search Member by ID"
                             name="member"
                             sx={{
                               marginLeft: "25px",

@@ -18,9 +18,9 @@ export const StudentShow = () => {
     <Show isLoading={isLoading}>
       <Stack gap={1}>
         <Typography variant="body1" fontWeight="bold">
-          Student_id
+          Student ID
         </Typography>
-        <NumberField value={record?.student_id ?? ""} />
+        <NumberField value={record?.id ?? ""} />
         <Typography variant="body1" fontWeight="bold">
           Firstname
         </Typography>
@@ -50,11 +50,11 @@ export const StudentShow = () => {
         </Typography>
         <TextField value={record?.address} />
         <Typography variant="body1" fontWeight="bold">
-          Createdat
+          Registered at
         </Typography>
         <DateField value={record?.createdat} />
         <Typography variant="body1" fontWeight="bold">
-          Updatedat
+          Updated at
         </Typography>
         <DateField value={record?.updatedat} />
       </Stack>
